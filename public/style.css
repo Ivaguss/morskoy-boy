@@ -1,0 +1,163 @@
+:root {
+  --bg: #0b1a2a;
+  --panel: #12283f;
+  --sea: #1b3a5c;
+  --sea-line: #27507a;
+  --accent: #37c0ff;
+  --accent-dark: #1a86c9;
+  --text: #e8f2fb;
+  --muted: #8fb0cc;
+  --miss: #4a6a86;
+  --hit: #ff5a4d;
+  --ship: #5b8fb9;
+  --ship-place: #6fe08a;
+  --danger: #ff7a6b;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100%;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.screen { display: none; text-align: center; }
+.screen.active { display: block; animation: fade 0.25s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+h1 { font-size: 30px; margin: 12px 0 4px; }
+h2 { font-size: 24px; margin: 12px 0 4px; }
+h3 { font-size: 15px; color: var(--muted); margin: 18px 0 8px; text-transform: uppercase; letter-spacing: 1px; }
+.subtitle { color: var(--muted); margin: 0 0 20px; }
+.hint { color: var(--muted); font-size: 14px; min-height: 20px; margin-top: 12px; }
+.hint.error { color: var(--danger); }
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 8px 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--sea-line);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.05s, background 0.15s;
+}
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: var(--accent-dark); border-color: var(--accent); }
+.btn.primary:disabled { opacity: 0.4; }
+.btn:disabled { cursor: not-allowed; }
+
+.divider { color: var(--muted); margin: 14px 0; font-size: 14px; }
+
+.join-row { display: flex; gap: 8px; }
+.join-row .btn { margin: 0; width: auto; flex: 0 0 90px; }
+#input-code {
+  flex: 1;
+  padding: 15px;
+  font-size: 22px;
+  text-align: center;
+  letter-spacing: 6px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--sea-line);
+  border-radius: 12px;
+}
+
+.code-box {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 12px;
+  color: var(--accent);
+  background: var(--panel);
+  border: 2px dashed var(--sea-line);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 12px 0;
+}
+
+/* ---- Поля ---- */
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 2px;
+  aspect-ratio: 1 / 1;
+  background: var(--sea-line);
+  border: 2px solid var(--sea-line);
+  border-radius: 8px;
+  margin: 0 auto;
+  touch-action: manipulation;
+}
+.board.own { max-width: 300px; }
+
+.cell {
+  background: var(--sea);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+}
+.cell.ship { background: var(--ship); }
+.cell.ship-place { background: var(--ship-place); }
+.cell.preview { background: var(--ship-place); opacity: 0.55; }
+.cell.preview-bad { background: var(--danger); opacity: 0.55; }
+.cell.miss { background: var(--miss); }
+.cell.miss::after { content: "•"; color: var(--text); opacity: 0.7; }
+.cell.hit { background: var(--hit); }
+.cell.hit::after { content: "✕"; color: #fff; font-weight: 700; }
+.cell.sunk { background: #a1231a; }
+
+.enemy .cell:not(.miss):not(.hit):not(.sunk):active { background: var(--accent-dark); }
+
+/* ---- Расстановка ---- */
+.fleet-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 14px 0 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.fleet-legend .fl {
+  padding: 4px 10px;
+  background: var(--panel);
+  border: 1px solid var(--sea-line);
+  border-radius: 20px;
+}
+.fleet-legend .fl.done { color: var(--ship-place); border-color: var(--ship-place); }
+
+.controls { display: flex; gap: 8px; margin-top: 6px; }
+.controls .btn { margin: 6px 0; }
+
+/* ---- Бой ---- */
+.turn-banner {
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 10px;
+  background: var(--panel);
+  border: 1px solid var(--sea-line);
+}
+.turn-banner.you { background: var(--accent-dark); border-color: var(--accent); }
+.turn-banner.enemy { background: var(--panel); color: var(--muted); }
+
+.enemy.locked { opacity: 0.6; pointer-events: none; }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Морской бой</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- Экран: меню -->
+    <section class="screen active" id="screen-menu">
+      <h1>⚓ Морской бой</h1>
+      <p class="subtitle">Игра на два телефона</p>
+      <button class="btn primary" id="btn-create">Создать игру</button>
+      <div class="divider">или</div>
+      <div class="join-row">
+        <input id="input-code" inputmode="numeric" maxlength="4" placeholder="Код" />
+        <button class="btn" id="btn-join">Войти</button>
+      </div>
+      <p class="hint" id="menu-error"></p>
+    </section>
+
+    <!-- Экран: ожидание второго игрока -->
+    <section class="screen" id="screen-wait">
+      <h2>Комната создана</h2>
+      <p class="subtitle">Продиктуйте код второму игроку</p>
+      <div class="code-box" id="room-code">----</div>
+      <p class="hint">Ждём подключения соперника…</p>
+    </section>
+
+    <!-- Экран: расстановка кораблей -->
+    <section class="screen" id="screen-place">
+      <h2>Расставьте флот</h2>
+      <p class="subtitle" id="place-status">Осталось поставить: —</p>
+      <div class="board" id="board-place"></div>
+      <div class="fleet-legend" id="fleet-legend"></div>
+      <div class="controls">
+        <button class="btn" id="btn-random">🎲 Случайно</button>
+        <button class="btn" id="btn-clear">Очистить</button>
+      </div>
+      <button class="btn primary" id="btn-ready" disabled>Готов к бою</button>
+      <p class="hint" id="place-error"></p>
+    </section>
+
+    <!-- Экран: бой -->
+    <section class="screen" id="screen-battle">
+      <div class="turn-banner" id="turn-banner">…</div>
+      <h3>Поле соперника</h3>
+      <div class="board enemy" id="board-enemy"></div>
+      <h3>Ваш флот</h3>
+      <div class="board own" id="board-own"></div>
+    </section>
+
+    <!-- Экран: результат -->
+    <section class="screen" id="screen-over">
+      <h1 id="over-title">—</h1>
+      <p class="subtitle" id="over-sub"></p>
+      <button class="btn primary" id="btn-rematch">Играть снова</button>
+      <p class="hint" id="over-hint"></p>
+    </section>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

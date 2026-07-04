@@ -1,0 +1,4 @@
+node_modules/
+cloudflared
+*.tgz
+.DS_Store
